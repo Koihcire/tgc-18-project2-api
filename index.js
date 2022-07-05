@@ -78,6 +78,16 @@ async function main(){
         }
     })
 
+    app.delete("/tools/:id", async function(req,res){
+        await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).deleteOne({
+            "id": ObjectId(req.params.id)
+        })
+        res.status(200);
+        res.json({
+            "message": "This document has been deleted"
+        })
+    })
+
     app.get("/users", async function(req,res){
         let criteria = {};
         // const db = MongoUtil.getDB();
