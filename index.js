@@ -19,6 +19,7 @@ const TAGS_COLLECTION_NAME="tags";
 //routes
 async function main(){
     await MongoUtil.connect(process.env.MONGO_URI, "tgc-session-tools");
+    const db = MongoUtil.getDB();
 
     app.get("/", function(req,res){
         res.json({
@@ -28,7 +29,7 @@ async function main(){
 
     app.get("/tools", async function(req,res){
         let criteria = {};
-        const db = MongoUtil.getDB();
+        // const db = MongoUtil.getDB();
         let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria).toArray();
         res.json({
             "tools": tools
@@ -37,7 +38,7 @@ async function main(){
 
     app.get("/users", async function(req,res){
         let criteria = {};
-        const db = MongoUtil.getDB();
+        // const db = MongoUtil.getDB();
         let users = await db.collection(USERS_COLLECTION_NAME).find(criteria).toArray();
         res.json({
             "users": users
@@ -46,7 +47,7 @@ async function main(){
 
     app.get("/tags", async function(req,res){
         let criteria = {};
-        const db = MongoUtil.getDB();
+        // const db = MongoUtil.getDB();
         let tags = await db.collection(TAGS_COLLECTION_NAME).find(criteria).toArray();
         res.json({
             "tags": tags
