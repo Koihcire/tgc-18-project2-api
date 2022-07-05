@@ -1,0 +1,25 @@
+{
+  "name": "tgc-18-project2-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Koihcire/tgc-18-project2-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Koihcire/tgc-18-project2-api/issues"
+  },
+  "homepage": "https://github.com/Koihcire/tgc-18-project2-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongo": "^0.1.0"
+  }
+}
