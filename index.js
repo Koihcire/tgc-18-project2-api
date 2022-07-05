@@ -56,9 +56,9 @@ async function main(){
 
     app.post("/add-tag", async function(req, res){
         try {
-            let id = ObjectId;
-            let name= "new-tag";
-            let displayName="New Tag";
+            let id = req.body.id;
+            let name= req.body.name;
+            let displayName= req.body.displayName;
     
             const db = MongoUtil.getDB();
     
