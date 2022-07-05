@@ -36,6 +36,48 @@ async function main(){
         })
     })
 
+    app.post("/add-tool", async function(req,res){
+        try{
+            let createdBy = req.body.createdBy;
+            let name = req.body.name;
+            let description = req.body.description;
+            let dateCreated = req.body.dateCreated;
+            let tags = req.body.tags;
+            let groupSize = req.body.groupSize;
+            let timeNeeded = req.body.timeNeeded;
+            let materials = req.body.materials;
+            let learningObjectives = req.body.learningObjectives;
+            let instructions = req.body.instructions;
+            let debrief = req.body.debrief;
+    
+            const db = MongoUtil.getDB();
+    
+            await db.collection(TOOLS_COLLECTION_NAME).insertOne({
+                createdBy,
+                name,
+                description,
+                dateCreated,
+                tags,
+                groupSize,
+                timeNeeded,
+                materials,
+                learningObjectives,
+                instructions,
+                debrief
+            });
+            res.status(200);
+                res.json({
+                    "message": "tool added"
+                })
+        } catch (e) {
+            res.status(500);
+            res.json({
+                "message": "Internal server error. Please contact administrator"
+            })
+            console.log(e)
+        }
+    })
+
     app.get("/users", async function(req,res){
         let criteria = {};
         // const db = MongoUtil.getDB();
@@ -43,6 +85,32 @@ async function main(){
         res.json({
             "users": users
         })
+    })
+
+    app.post("/add-user", async function(req,res){
+        try {
+            let userName = req.body.userName;
+            let email = req.body.email;
+            let password = req.body.password;
+    
+            const db = MongoUtil.getDB();
+    
+            await db.collection(USERS_COLLECTION_NAME).insertOne({
+                userName,
+                email,
+                password
+            });
+            res.status(200);
+            res.json({
+                "message": "user added"
+            })
+        } catch (e) {
+            res.status(500);
+            res.json({
+                "message": "Internal server error. Please contact administrator"
+            })
+            console.log(e)
+        }
     })
 
     app.get("/tags", async function(req,res){
@@ -56,14 +124,12 @@ async function main(){
 
     app.post("/add-tag", async function(req, res){
         try {
-            let id = req.body.id;
             let name= req.body.name;
             let displayName= req.body.displayName;
     
             const db = MongoUtil.getDB();
     
             await db.collection(TAGS_COLLECTION_NAME).insertOne({
-                id,
                 name,
                 displayName
             });
@@ -75,13 +141,10 @@ async function main(){
         } catch (e){
             res.status(500);
             res.json({
-                "message": "Internal serve error. Please contact administrator"
+                "message": "Internal server error. Please contact administrator"
             })
             console.log(e)
         }
-        
-        
-        
     })
 }
 main();
