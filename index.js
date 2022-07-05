@@ -78,7 +78,7 @@ async function main(){
         }
     })
 
-    app.delete("/tools/:id", async function(req,res){
+    app.delete("/delete-tool/:id", async function(req,res){
         await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).deleteOne({
             "id": ObjectId(req.params.id)
         })
