@@ -24,6 +24,14 @@ async function main(){
             "message": "welcome to session tools api"
         })
     })
+
+    app.get("/tools", async function(req,res){
+        const db = MongoUtil.getDB();
+        let tools = await db.collection(TOOLS_COLLECTION_NAME).toArray();
+        res.json({
+            "tools": tools
+        })
+    })
 }
 main();
 
