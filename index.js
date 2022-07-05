@@ -14,6 +14,7 @@ app.use(cors());
 const USERS_COLLECTION_NAME="users";
 const TOOLS_COLLECTION_NAME="tools";
 const TAGS_COLLECTION_NAME="tags";
+const db = MongoUtil.getDB();
 
 //routes
 async function main(){
@@ -26,13 +27,29 @@ async function main(){
     })
 
     app.get("/tools", async function(req,res){
-        const db = MongoUtil.getDB();
-
         let criteria = {};
 
         let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria).toArray();
         res.json({
             "tools": tools
+        })
+    })
+
+    app.get("/users", async function(req,res){
+        let criteria = {};
+
+        let users = await db.collection(USERS_COLLECTION_NAME).find(criteria).toArray();
+        res.json({
+            "users": users
+        })
+    })
+
+    app.get("/tags", async function(req,res){
+        let criteria = {};
+        
+        let tags = await db.collection(TAGS_COLLECTION_NAME).find(criteria).toArray();
+        res.json({
+            "tags": tags
         })
     })
 }
