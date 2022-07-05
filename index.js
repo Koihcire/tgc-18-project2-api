@@ -20,7 +20,9 @@ async function main(){
     await MongoUtil.connect(process.env.MONGO_URI, "tgc-session-tools");
 
     app.get("/", function(req,res){
-        res.render("hello word")
+        res.json({
+            "message": "welcome to session tools api"
+        })
     })
 }
 main();
