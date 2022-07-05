@@ -53,6 +53,36 @@ async function main(){
             "tags": tags
         })
     })
+
+    app.post("/add-tag", async function(req, res){
+        try {
+            let id = ObjectId;
+            let name= "new-tag";
+            let displayName="New Tag";
+    
+            const db = MongoUtil.getDB();
+    
+            await db.collection(TAGS_COLLECTION_NAME).insertOne({
+                id,
+                name,
+                displayName
+            });
+    
+            res.status(200);
+            res.json({
+                "message": "tag added"
+            })
+        } catch (e){
+            res.status(500);
+            res.json({
+                "message": "Internal serve error. Please contact administrator"
+            })
+            console.log(e)
+        }
+        
+        
+        
+    })
 }
 main();
 
