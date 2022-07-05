@@ -27,7 +27,10 @@ async function main(){
 
     app.get("/tools", async function(req,res){
         const db = MongoUtil.getDB();
-        let tools = await db.collection(TOOLS_COLLECTION_NAME).toArray();
+
+        let criteria = {};
+
+        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria).toArray();
         res.json({
             "tools": tools
         })
