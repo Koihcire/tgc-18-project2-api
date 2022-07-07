@@ -63,10 +63,22 @@ async function main() {
             }
         }
 
-        if (req.query.timeNeeded) {
+        // if (req.query.) {
+        //     criteria["timeNeeded"] = {
+        //         //if time taken is between 2 input integers
+        //         "$lte": maxTimeNeeded,
+        //         "$gte": minTimeNeeded
+        //     }
+        // }
+
+        if(req.query.maxTimeNeeded){
             criteria["timeNeeded"] = {
-                //if time taken is between 2 input integers
-                "$lte": maxTimeNeeded,
+                "$lte": maxTimeNeeded
+            }
+        }
+
+        if (req.query.minTimeNeeded){
+            criteria["timeNeeded"] = {
                 "$gte": minTimeNeeded
             }
         }
