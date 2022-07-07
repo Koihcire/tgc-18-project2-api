@@ -71,15 +71,16 @@ async function main() {
         //     }
         // }
 
-        if(req.query.maxTimeNeeded){
-            criteria["timeNeeded"] = {
-                "$lte": maxTimeNeeded
-            }
-        }
+        // if(req.query.maxTimeNeeded){
+        //     criteria["timeNeeded"] = {
+        //         "$lte": req.query.maxTimeNeeded
+        //     }
+        // }
 
         if (req.query.minTimeNeeded){
             criteria["timeNeeded"] = {
-                "$gte": minTimeNeeded
+                "$gte": parseInt(req.query.minTimeNeeded),
+                "$lte": parseInt(req.query.maxTimeNeeded)
             }
         }
         // const db = MongoUtil.getDB();
