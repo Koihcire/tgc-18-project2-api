@@ -75,7 +75,7 @@ async function main() {
         console.log(criteria);
         console.log(tools);
         res.json({
-            "tools": tools
+            tools
         })
     })
 
