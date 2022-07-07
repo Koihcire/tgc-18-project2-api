@@ -51,7 +51,7 @@ async function main() {
             criteria["tags"] = {
                 //if tags includes the following strings, case insensitive
                 //tags is an array of strings
-                "$in" : tags
+                "$in" : req.query.tags
             }
         }
 
@@ -59,23 +59,9 @@ async function main() {
             criteria["groupSize"] = {
                 //if groupsize includes the following strings, small medium or large
                 // groupSize is an array of strings [small, medium, large]
-                "$in" : groupSize
+                "$in" : req.query.groupSize
             }
         }
-
-        // if (req.query.) {
-        //     criteria["timeNeeded"] = {
-        //         //if time taken is between 2 input integers
-        //         "$lte": maxTimeNeeded,
-        //         "$gte": minTimeNeeded
-        //     }
-        // }
-
-        // if(req.query.maxTimeNeeded){
-        //     criteria["timeNeeded"] = {
-        //         "$lte": req.query.maxTimeNeeded
-        //     }
-        // }
 
         if (req.query.minTimeNeeded){
             criteria["timeNeeded"] = {
