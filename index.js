@@ -70,9 +70,9 @@ async function main() {
             }
         }
 
-        if (req.query.createdBy){
-            criteria["createdBy"] = {
-                "$eq": req.query.createdBy
+        if (req.query.email){
+            criteria["createdBy.email"] = {
+                "$eq": req.query.email
             }
         }
         // const db = MongoUtil.getDB();
