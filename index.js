@@ -83,7 +83,8 @@ async function main() {
             let createdBy = req.body.createdBy;
             let name = req.body.name;
             let description = req.body.description;
-            let dateCreated = req.body.dateCreated;
+            // let dateCreated = req.body.dateCreated;
+            let dateCreated = new Date();
             let tags = req.body.tags;
             let groupSize = req.body.groupSize;
             let timeNeeded = req.body.timeNeeded;
