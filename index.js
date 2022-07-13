@@ -69,6 +69,12 @@ async function main() {
                 "$lte": parseInt(req.query.maxTimeNeeded)
             }
         }
+
+        if (req.query.createdBy){
+            criteria["createdBy"] = {
+                "$eq": req.query.createdBy
+            }
+        }
         // const db = MongoUtil.getDB();
         let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria).toArray();
         console.log(criteria);
