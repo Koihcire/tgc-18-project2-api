@@ -45,6 +45,11 @@ async function main() {
 
     app.get("/tools", async function (req, res) {
         let criteria = {};
+        let projection = {
+            projection:{
+                "createdBy.email": 0
+            }
+        }
 
         if (req.query.name) {
             criteria["name"] = {
@@ -92,7 +97,7 @@ async function main() {
             }
         }
         // const db = MongoUtil.getDB();
-        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria).toArray();
+        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria,projection).toArray();
         console.log(criteria);
         console.log(tools);
         res.json({
