@@ -27,6 +27,22 @@ async function main() {
         })
     })
 
+    app.get("/tags", async function (req, res) {
+        let criteria = {}
+        let projection = {
+            projection:{
+                "tags": 1
+            }
+        }
+        // const db = MongoUtil.getDB();
+        let tags = await db.collection(TOOLS_COLLECTION_NAME).find(criteria, projection).toArray();
+        // console.log(criteria);
+        // console.log(tools);
+        res.json({
+            tags
+        })
+    })
+
     app.get("/tools", async function (req, res) {
         let criteria = {};
 
@@ -51,7 +67,7 @@ async function main() {
             criteria["tags"] = {
                 //if tags includes the following strings, case insensitive
                 //tags is an array of strings
-                "$in" : req.query.tags
+                "$in": req.query.tags
             }
         }
 
@@ -59,18 +75,18 @@ async function main() {
             criteria["groupSize"] = {
                 //if groupsize includes the following strings, small medium or large
                 // groupSize is an array of strings [small, medium, large]
-                "$in" : req.query.groupSize
+                "$in": req.query.groupSize
             }
         }
 
-        if (req.query.minTimeNeeded){
+        if (req.query.minTimeNeeded) {
             criteria["timeNeeded"] = {
                 "$gte": parseInt(req.query.minTimeNeeded),
                 "$lte": parseInt(req.query.maxTimeNeeded)
             }
         }
 
-        if (req.query.email){
+        if (req.query.email) {
             criteria["createdBy.email"] = {
                 "$eq": req.query.email
             }
