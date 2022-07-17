@@ -180,12 +180,26 @@ async function main() {
     app.put("/update-tool/:id", async function (req,res){
         try {
             let name = req.body.name;
+            let description = req.body.description;
+            let groupSize = req.body.groupSize;
+            let timeNeeded = req.body.timeNeeded;
+            let materials = req.body.materials;
+            let learningObjectives = req.body.learningObjectives;
+            let instructions = req.body.instructions;
+            let debrief = req.body.debrief;
 
             await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
                 "_id": ObjectId(req.params.id)
             },{
                 "$set": {
-                    "name": name
+                    "name": name,
+                    "description" : description,
+                    "groupSize" : groupSize,
+                    "timeNeeded" : timeNeeded,
+                    "materials" : materials,
+                    "learningObjectives" : learningObjectives,
+                    "instructions" : instructions,
+                    "debrief" : req.body.debrief
                 }
             })
 
