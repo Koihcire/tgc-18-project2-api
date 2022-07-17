@@ -30,7 +30,7 @@ async function main() {
     app.get("/tags", async function (req, res) {
         let criteria = {}
         let projection = {
-            projection:{
+            projection: {
                 "tags": 1
             }
         }
@@ -46,7 +46,7 @@ async function main() {
     app.get("/tools", async function (req, res) {
         let criteria = {};
         let projection = {
-            projection:{
+            projection: {
                 "createdBy.email": 0
             }
         }
@@ -97,12 +97,42 @@ async function main() {
             }
         }
         // const db = MongoUtil.getDB();
-        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria,projection).toArray();
+        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria, projection).toArray();
         console.log(criteria);
         console.log(tools);
         res.json({
             tools
         })
+    })
+
+    app.get("/tool/:id", async function (req, res) {
+        try {
+            let criteria = {};
+            let projection = {
+                projection: {
+                    "createdBy.email": 0
+                }
+            }
+
+            if (req.params.id) {
+                criteria["_id"] = {
+                    "$eq": ObjectId(req.params.id)
+                }
+            }
+
+            let tool = await db.collection(TOOLS_COLLECTION_NAME).findOne(criteria, projection);
+            console.log(criteria);
+            console.log(tool);
+            res.json({
+                tool
+            })
+        } catch (e) {
+            res.status(500);
+            res.json({
+                "message": "Internal server error. Please contact administrator"
+            })
+            console.log(e)
+        }
     })
 
     app.post("/add-tool", async function (req, res) {
