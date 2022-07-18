@@ -166,7 +166,7 @@ async function main() {
             let tags = req.body.tags;
             let groupSize = req.body.groupSize;
             let timeNeeded = req.body.timeNeeded;
-            let difficult = req.body.difficulty;
+            let difficulty = req.body.difficulty;
             let materials = req.body.materials;
             let learningObjectives = req.body.learningObjectives;
             let instructions = req.body.instructions;
