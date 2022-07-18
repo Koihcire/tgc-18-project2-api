@@ -242,6 +242,30 @@ async function main() {
         }
     })
 
+    app.put("/update-likes/:id", async function(req,res){
+        try{
+            let likes = req.body.likes
+
+            await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
+                "_id": ObjectId(req.params.id)
+            },{
+                "$set": {
+                    "likes" : likes
+                }
+            })
+            res.status(200);
+            res.json({
+                "message": "tool updated"
+            })
+        } catch (e) {
+            res.status (500);
+            res.json({
+                "message" : "Internal server error. Please contact administrator"
+            }) 
+            console.log(e)
+        }
+    })
+
     app.delete("/delete-tool/:id", async function (req, res) {
         
         await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).deleteOne({
