@@ -51,6 +51,19 @@ async function main() {
                 "createdBy.email": 0
             }
         }
+        let sortCriteria = {};
+
+        if(req.query.sortBy){
+            if(req.query.sortBy == "popularity"){
+                sortCriteria = {
+                    "likes": -1
+                }
+            } else if (req.query.sortBy == "recentlyAdded"){
+                sortCriteria = {
+                    "dateCreated": -1
+                }
+            }
+        }
 
         if (req.query.name) {
             criteria["name"] = {
@@ -105,7 +118,7 @@ async function main() {
             }
         }
         // const db = MongoUtil.getDB();
-        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria, projection).toArray();
+        let tools = await db.collection(TOOLS_COLLECTION_NAME).find(criteria, projection).sort(sortCriteria).toArray();
         console.log(criteria);
         console.log(tools);
         res.json({
