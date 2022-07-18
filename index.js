@@ -199,7 +199,8 @@ async function main() {
                     "materials" : materials,
                     "learningObjectives" : learningObjectives,
                     "instructions" : instructions,
-                    "debrief" : req.body.debrief
+                    "debrief" : req.body.debrief,
+                    "tags": req.body.tags
                 }
             })
 
