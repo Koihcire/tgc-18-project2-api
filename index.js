@@ -171,6 +171,7 @@ async function main() {
             let learningObjectives = req.body.learningObjectives;
             let instructions = req.body.instructions;
             let debrief = req.body.debrief;
+            let likes = 0;
 
             const db = MongoUtil.getDB();
             await db.collection(TOOLS_COLLECTION_NAME).insertOne({
@@ -185,7 +186,8 @@ async function main() {
                 materials,
                 learningObjectives,
                 instructions,
-                debrief
+                debrief,
+                likes
             });
             res.status(200);
             res.json({
