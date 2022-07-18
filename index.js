@@ -78,6 +78,12 @@ async function main() {
             }
         }
 
+        if (req.query.difficulty){
+            criteria["difficulty"] = {
+                "$eq": req.query.difficulty
+            }
+        }
+
         if (req.query.groupSize) {
             criteria["groupSize"] = {
                 //if groupsize includes the following strings, small medium or large
@@ -147,6 +153,7 @@ async function main() {
             let tags = req.body.tags;
             let groupSize = req.body.groupSize;
             let timeNeeded = req.body.timeNeeded;
+            let difficult = req.body.difficulty;
             let materials = req.body.materials;
             let learningObjectives = req.body.learningObjectives;
             let instructions = req.body.instructions;
@@ -161,6 +168,7 @@ async function main() {
                 tags,
                 groupSize,
                 timeNeeded,
+                difficulty,
                 materials,
                 learningObjectives,
                 instructions,
@@ -185,6 +193,7 @@ async function main() {
             let description = req.body.description;
             let groupSize = req.body.groupSize;
             let timeNeeded = req.body.timeNeeded;
+            let difficulty = req.body.difficulty;
             let materials = req.body.materials;
             let learningObjectives = req.body.learningObjectives;
             let instructions = req.body.instructions;
@@ -198,6 +207,7 @@ async function main() {
                     "description" : description,
                     "groupSize" : groupSize,
                     "timeNeeded" : timeNeeded,
+                    "difficulty" : difficulty,
                     "materials" : materials,
                     "learningObjectives" : learningObjectives,
                     "instructions" : instructions,
