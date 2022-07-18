@@ -3,6 +3,7 @@ const cors = require("cors");
 require("dotenv").config();
 const ObjectId = require("mongodb").ObjectId;
 const MongoUtil = require("./MongoUtil")
+const {getPriorOne} = require("./PriorOne")
 
 //set up express app
 const app = express();
@@ -59,12 +60,13 @@ async function main() {
         }
 
         if (req.query.dateCreated) {
-            const now = new Date()
-            const temp = new Date(now).setMonth(now.getMonth() - 1);
-            const priorOne = new Date(temp)
+            // const now = new Date()
+            // const temp = new Date(now).setMonth(now.getMonth() - 1);
+            // const priorOne = new Date(temp)
+            
             criteria["dateCreated"] = {
                 //how to code date created is within 1 month of current date
-                "$gte": priorOne
+                "$gte": getPriorOne()
             }
         }
 
