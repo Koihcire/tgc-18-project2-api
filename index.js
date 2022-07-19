@@ -268,6 +268,32 @@ async function main() {
         }
     })
 
+    app.put("/add-comment/:id", async function(req,res){
+        try{
+            let comment_id = new ObjectId()
+            let userName = req.body.userName
+            let comments = req.body.commentData
+
+            await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
+                "_id": ObjectId(req.params.id)
+            },{
+                $push : {
+                    comments: {comment_id, userName, comments}
+                }
+            })
+            res.status(200);
+            res.json({
+                "message": "Comment added"
+            })
+        } catch (e) {
+            res.status (500);
+            res.json({
+                "message" : "Internal server error. Please contact administrator"
+            }) 
+            console.log(e)
+        }
+    })
+
     app.delete("/delete-tool/:id", async function (req, res) {
         
         await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).deleteOne({
