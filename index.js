@@ -342,13 +342,12 @@ async function main() {
         }
     })
 
-    app.put("/delete-comment/:id", async function(req,res){
+    app.put("/delete-comment/", async function(req,res){
         let comment_id = req.body.comment_id
-        let email = req.body.email
 
         try{
             await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
-                "_id": ObjectId(req.params.id)
+                "comments.comment_id": ObjectId(comment_id)
             },{
                 "$pull" : {
                     comments: {"comment_id" : ObjectId(comment_id)}
