@@ -272,7 +272,7 @@ async function main() {
         try{
             let comment_id = new ObjectId()
             let userName = req.body.userName
-            let comments = req.body.commentData
+            let comments = req.body.comments
 
             await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
                 "_id": ObjectId(req.params.id)
