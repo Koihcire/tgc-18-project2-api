@@ -48,7 +48,8 @@ async function main() {
         let criteria = {};
         let projection = {
             projection: {
-                "createdBy.email": 0
+                "createdBy.email": 0,
+                "comments.email": 0
             }
         }
         let sortCriteria = {};
@@ -271,6 +272,7 @@ async function main() {
     app.put("/add-comment/:id", async function(req,res){
         try{
             let comment_id = new ObjectId()
+            let email = req.body.email
             let userName = req.body.userName
             let comments = req.body.comments
 
@@ -278,7 +280,7 @@ async function main() {
                 "_id": ObjectId(req.params.id)
             },{
                 $push : {
-                    comments: {comment_id, userName, comments}
+                    comments: {comment_id, userName, email, comments}
                 }
             })
             res.status(200);
