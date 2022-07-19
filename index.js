@@ -309,69 +309,67 @@ async function main() {
     })
 
     app.get("/get-comment", async function(req,res){
-        let comment_id = "62d62c5bc5f7a523f106b07b"
-        let tool_id = "62d518b78d2649fdf151b663"
-        let email = "13@email.com"
-        // let response = await db.collection(TOOLS_COLLECTION_NAME).findOne({
-        //     "comments.comment_id" : ObjectId(comment_id)
-        // },{
-        //     "comments" : 1
-        // })
-        let response = await db.collection(TOOLS_COLLECTION_NAME).aggregate([
-            {
-                "$match": {
-                    "comments.comment_id" : ObjectId(comment_id),
-                    "_id": ObjectId(tool_id)
+        let comment_id = req.query.comment_id
+        let email = req.query.email
+        try{
+            let response = await db.collection(TOOLS_COLLECTION_NAME).aggregate([
+                {
+                    "$unwind": "$comments"
+                },
+                {
+                    "$match": {
+                        "comments.comment_id" : ObjectId(comment_id),
+                        "comments.email": email
+                    }
+                },
+                {
+                    "$project": {
+                        "comment_id": "$comments.comment_id",
+                        "email" : "$comments.email",
+                        "_id": 0
+                    }
                 }
-            },
-            {
-                "$unwind": "$comments"
-            },
-            {
-                "$project": {
-                    "comment_id": "$comments.comment_id",
-                    "email" : "$comments.email"
-                    // "comments.comment_id" : 1,
-                    // "comments.email" : 1
-                }
-            }
-        ]).toArray()
-        res.status(200);
-        res.json(response)
-        // console.log(response)
-        
-        // for (let i = 0; i < response.length; i++){
-        //     if(response._id || tool_id && response.comment_id == comment_id && response.email == email){
-        //         console.log ("match")
-        //     }
-        // }
-        // console.log(response)
+            ]).toArray()
+            res.status(200);
+            res.json({
+                "message" : "found"
+            })
+            console.log("found")
+
+        }catch(e){
+            res.status(500)
+            res.json({
+                "message" : "not found"
+            })
+            console.log(e)
+            console.log("not found")
+        }
     })
 
     app.put("/delete-comment/:id", async function(req,res){
         let comment_id = req.body.comment_id
         let email = req.body.email
 
-        // try{
-        //     await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
-        //         "_id": ObjectId(req.params.id)
-        //     },{
-        //         "$pull" : {
-        //             comments: {"comment_id" : ObjectId(comment_id)}
-        //         }
+        try{
+            await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
+                "_id": ObjectId(req.params.id)
+            },{
+                "$pull" : {
+                    comments: {"comment_id" : ObjectId(comment_id)}
+                }
     
-        //     })
-        //     res.status(200);
-        //     res.json({
-        //         "message": "Comment deleted"
-        //     })
-        // } catch (e){
-        //     res.status (500);
-        //     res.json({
-        //         "message" : "Internal server error. Please contact administrator"
-        //     })
-        //     console.log(e)
-        // }  
+            })
+            res.status(200);
+            res.json({
+                "message": "Comment deleted"
+            })
+        } catch (e){
+            res.status (500);
+            res.json({
+                "message" : "Internal server error. Please contact administrator"
+            })
+            console.log(e)
+        }  
     })
 
     app.get("/users", async function (req, res) {
