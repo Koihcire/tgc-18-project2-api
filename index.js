@@ -331,18 +331,14 @@ async function main() {
                 }
             ]).toArray()
             res.status(200);
-            res.json({
-                "message" : "found"
-            })
-            console.log("found")
-
+            res.json(response)
         }catch(e){
             res.status(500)
             res.json({
-                "message" : "not found"
+                "message" : "Internal server error"
             })
             console.log(e)
-            console.log("not found")
+            console.log("Internal server error")
         }
     })
 
