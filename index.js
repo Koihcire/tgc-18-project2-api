@@ -132,7 +132,8 @@ async function main() {
             let criteria = {};
             let projection = {
                 projection: {
-                    "createdBy.email": 0
+                    "createdBy.email": 0,
+                    "comments.email": 0
                 }
             }
 
