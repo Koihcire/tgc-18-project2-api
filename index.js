@@ -119,7 +119,7 @@ async function main() {
             if (!req.query.maxTimeNeeded){
                 maxTime = 0
             } else {
-                maxTime = req.query.minTimeNeeded
+                maxTime = req.query.maxTimeNeeded
             }
             
             // criteria["timeNeeded"] = {
