@@ -111,13 +111,13 @@ async function main() {
             let maxTime = ''
 
             if (!req.query.minTimeNeeded){
-                minTime = ''
+                minTime = '0'
             } else {
                 minTime = req.query.minTimeNeeded
             }
 
             if (!req.query.maxTimeNeeded){
-                maxTime = ''
+                maxTime = '0'
             } else {
                 maxTime = req.query.maxTimeNeeded
             }
