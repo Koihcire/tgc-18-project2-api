@@ -107,8 +107,8 @@ async function main() {
         }
 
         if (req.query.minTimeNeeded || req.query.minTimeNeeded) {
-            let minTime = null
-            let maxTime = null
+            let minTime = 0
+            let maxTime = 0
 
             if (!req.query.minTimeNeeded){
                 minTime = 0
