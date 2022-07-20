@@ -107,10 +107,21 @@ async function main() {
         }
 
         if (req.query.minTimeNeeded) {
-            criteria["timeNeeded"] = {
-                "$gte": parseInt(req.query.minTimeNeeded),
-                "$lte": parseInt(req.query.maxTimeNeeded)
+            let minTimeCriteria = {
+                "$gte" : parseInt(req.query.minTimeNeeded)
             }
+            criteria["timeNeeded"].push(minTimeCriteria)
+            // criteria["timeNeeded"] = {
+            //     "$gte": parseInt(req.query.minTimeNeeded),
+            //     "$lte": parseInt(req.query.maxTimeNeeded)
+            // }
+        }
+
+        if (req.query.maxTimeNeeded) {
+            let maxTimeCriteria = {
+                "$lte" : parseInt(req.query.maxTimeNeeded)
+            }
+            criteria["timeNeeded"].push(maxTimeCriteria)
         }
 
         if (req.query.email) {
