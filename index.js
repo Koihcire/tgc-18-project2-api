@@ -106,22 +106,31 @@ async function main() {
             }
         }
 
-        if (req.query.minTimeNeeded) {
-            let minTimeCriteria = {
-                "$gte" : parseInt(req.query.minTimeNeeded)
+        if (req.query.minTimeNeeded || req.query.minTimeNeeded) {
+            let minTime = null
+            let maxTime = null
+
+            if (!req.query.minTimeNeeded){
+                minTime = 0
+            } else {
+                minTime = req.query.minTimeNeeded
             }
-            criteria["timeNeeded"].push(minTimeCriteria)
+
+            if (!req.query.maxTimeNeeded){
+                maxTime = 0
+            } else {
+                maxTime = req.query.minTimeNeeded
+            }
+            
             // criteria["timeNeeded"] = {
             //     "$gte": parseInt(req.query.minTimeNeeded),
             //     "$lte": parseInt(req.query.maxTimeNeeded)
             // }
-        }
 
-        if (req.query.maxTimeNeeded) {
-            let maxTimeCriteria = {
-                "$lte" : parseInt(req.query.maxTimeNeeded)
+            criteria["timeNeeded"] = {
+                "$gte": parseInt(minTime),
+                "$lte": parseInt(maxTime)
             }
-            criteria["timeNeeded"].push(maxTimeCriteria)
         }
 
         if (req.query.email) {
