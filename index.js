@@ -117,7 +117,7 @@ async function main() {
             }
 
             if (!req.query.maxTimeNeeded){
-                maxTime = '0'
+                maxTime = '999'
             } else {
                 maxTime = req.query.maxTimeNeeded
             }
