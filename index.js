@@ -229,7 +229,7 @@ async function main() {
             let name = req.body.name;
             let description = req.body.description;
             let groupSize = req.body.groupSize;
-            let timeNeeded = req.body.timeNeeded;
+            let timeNeeded = parseInt(req.body.timeNeeded);
             let difficulty = req.body.difficulty;
             let materials = req.body.materials;
             let learningObjectives = req.body.learningObjectives;
