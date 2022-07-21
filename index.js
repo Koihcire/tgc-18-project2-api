@@ -187,7 +187,7 @@ async function main() {
             let dateCreated = new Date();
             let tags = req.body.tags;
             let groupSize = req.body.groupSize;
-            let timeNeeded = parseint(req.body.timeNeeded);
+            let timeNeeded = parseInt(req.body.timeNeeded);
             let difficulty = req.body.difficulty;
             let materials = req.body.materials;
             let learningObjectives = req.body.learningObjectives;
