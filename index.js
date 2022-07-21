@@ -268,7 +268,7 @@ async function main() {
 
     app.put("/update-likes/:id", async function(req,res){
         try{
-            let likes = req.body.likes
+            let likes = parseInt(req.body.likes)
 
             await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
                 "_id": ObjectId(req.params.id)
