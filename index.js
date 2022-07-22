@@ -235,6 +235,7 @@ async function main() {
             let learningObjectives = req.body.learningObjectives;
             let instructions = req.body.instructions;
             let debrief = req.body.debrief;
+            let tags = req.body.tags
 
             await MongoUtil.getDB().collection(TOOLS_COLLECTION_NAME).updateOne({
                 "_id": ObjectId(req.params.id)
@@ -248,8 +249,8 @@ async function main() {
                     "materials" : materials,
                     "learningObjectives" : learningObjectives,
                     "instructions" : instructions,
-                    "debrief" : req.body.debrief,
-                    "tags": req.body.tags
+                    "debrief" : debrief,
+                    "tags": tags
                 }
             })
 
