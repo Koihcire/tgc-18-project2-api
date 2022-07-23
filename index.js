@@ -206,7 +206,7 @@ async function main() {
             let debrief = "";
             let likes = 0;
 
-            if(req.body.createdBy.length){
+            if(req.body.createdBy){
                 createdBy = req.body.createdBy
             } else {
                 createdBy = [{
