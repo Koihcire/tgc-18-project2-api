@@ -74,9 +74,6 @@ async function main() {
         }
 
         if (req.query.dateCreated) {
-            // const now = new Date()
-            // const temp = new Date(now).setMonth(now.getMonth() - 1);
-            // const priorOne = new Date(temp)
             
             criteria["dateCreated"] = {
                 //how to code date created is within 1 month of current date
@@ -180,20 +177,83 @@ async function main() {
 
     app.post("/add-tool", async function (req, res) {
         try {
-            let createdBy = req.body.createdBy;
-            let name = req.body.name;
-            let description = req.body.description;
-            // let dateCreated = req.body.dateCreated;
+            // let createdBy = req.body.createdBy;
+            // let name = req.body.name;
+            // let description = req.body.description;
+            // // let dateCreated = req.body.dateCreated;
+            // let dateCreated = new Date();
+            // let tags = req.body.tags;
+            // let groupSize = req.body.groupSize;
+            // let timeNeeded = parseInt(req.body.timeNeeded);
+            // let difficulty = req.body.difficulty;
+            // let materials = req.body.materials;
+            // let learningObjectives = req.body.learningObjectives;
+            // let instructions = req.body.instructions;
+            // let debrief = req.body.debrief;
+            // let likes = 0;
+
+            let createdBy = [];
+            let name = "";
+            let description = "";
             let dateCreated = new Date();
-            let tags = req.body.tags;
-            let groupSize = req.body.groupSize;
-            let timeNeeded = parseInt(req.body.timeNeeded);
-            let difficulty = req.body.difficulty;
-            let materials = req.body.materials;
-            let learningObjectives = req.body.learningObjectives;
-            let instructions = req.body.instructions;
-            let debrief = req.body.debrief;
+            let tags = [];
+            let groupSize = [];
+            let timeNeeded = "";
+            let difficulty = "";
+            let materials = [];
+            let learningObjectives = [];
+            let instructions = "";
+            let debrief = "";
             let likes = 0;
+
+            if(req.body.createdBy.length){
+                createdBy = req.body.createdBy
+            } else {
+                createdBy = [{
+                    "userName": "admin",
+                    "email": "admin@email.com"
+                }]
+            }
+
+            if(req.body.name.length < 100){
+                name = req.body.name
+            }
+
+            if (req.body.description.length<300){
+                description = req.body.description
+            }
+
+            if (req.body.tags.length){
+                tags = req.body.tags
+            }
+
+            if (req.body.groupSize.length){
+                groupSize = req.body.groupSize
+            }
+
+            if (req.body.timeNeeded > 0 && req.body.timeNeeded < 999){
+                timeNeeded = parseInt(req.body.timeNeeded)
+            } 
+
+            if (req.body.difficulty){
+                difficulty = req.body.difficulty
+            }
+
+            if (req.body.materials.length){
+                materials = req.body.materials
+            }
+
+            if (req.body.learningObjectives.length){
+                learningObjectives = req.body.learningObjectives
+            }
+
+            if (req.body.instructions){
+                instructions = req.body.instructions
+            }
+
+            if (req.body.debrief){
+                debrief = req.body.debrief
+            }
 
             const db = MongoUtil.getDB();
             await db.collection(TOOLS_COLLECTION_NAME).insertOne({
